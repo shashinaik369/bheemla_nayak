@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "894730404876",
+    "project_id": "bheemla-nayak-c04dc",
+    "storage_bucket": "bheemla-nayak-c04dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894730404876:android:1a1e54fceceffbfe771a29",
+        "android_client_info": {
+          "package_name": "com.ss.bheemlanayak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894730404876-7oraa8qsk8u8f0ildvvva2l3r3v7dcdk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQrz3s0OlQHcQd82byqseyHDT9mgUTgoQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894730404876-7oraa8qsk8u8f0ildvvva2l3r3v7dcdk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
