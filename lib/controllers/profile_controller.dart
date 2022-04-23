@@ -13,13 +13,12 @@ class ProfileController extends GetxController {
     getUserData();
   }
 
-
-
   getUserData() async {
     List<String> gifs = [];
     var myVideos = await firestore
         .collection('videos')
         .where('uid', isEqualTo: _uid.value)
+        .orderBy('timeStamp', descending: true)
         .get();
 
     for (int i = 0; i < myVideos.docs.length; i++) {

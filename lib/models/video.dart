@@ -13,21 +13,22 @@ class Video {
   // String thumbnail;
   String gif;
   String profilePhoto;
+  String timeStamp;
 
-  Video({
-    required this.username,
-    required this.uid,
-    required this.id,
-    required this.likes,
-    required this.commentCount,
-    required this.shareCount,
-    required this.songName,
-    required this.caption,
-    required this.videoUrl,
-    required this.profilePhoto,
-    // required this.thumbnail,
-    required this.gif,
-  });
+  Video(
+      {required this.username,
+      required this.uid,
+      required this.id,
+      required this.likes,
+      required this.commentCount,
+      required this.shareCount,
+      required this.songName,
+      required this.caption,
+      required this.videoUrl,
+      required this.profilePhoto,
+      // required this.thumbnail,
+      required this.gif,
+      required this.timeStamp});
 
   Map<String, dynamic> toJson() => {
         "username": username,
@@ -42,6 +43,7 @@ class Video {
         "videoUrl": videoUrl,
         // "thumbnail": thumbnail,
         "gif": gif,
+        "timeStamp": timeStamp,
       };
 
   static Video fromSnap(DocumentSnapshot snap) {
@@ -60,6 +62,7 @@ class Video {
       profilePhoto: snapshot['profilePhoto'],
       // thumbnail: snapshot['thumbnail'],
       gif: snapshot['gif'],
+      timeStamp: snapshot['timeStamp'],
     );
   }
 }

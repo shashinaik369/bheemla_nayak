@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tiktok_tutorial/constants.dart';
 import 'package:tiktok_tutorial/models/video.dart';
@@ -13,6 +12,7 @@ import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 import 'package:uuid/uuid.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
+import 'package:intl/intl.dart';
 
 class UploadVideoController extends GetxController {
   // var isUploading = false.obs;
@@ -46,8 +46,6 @@ class UploadVideoController extends GetxController {
         .then((returnCode) => print("Return code $returnCode"));
     return outPath;
   }
-
-
 
   _compressVideo(String videoPath) async {
     final compressedVideo = await VideoCompress.compressVideo(
@@ -113,25 +111,21 @@ class UploadVideoController extends GetxController {
       // get id
       var allDocs = await firestore.collection('videos').get();
       int len = allDocs.docs.length;
-      String date = DateTime.now().hour.toString() +
-          ":" +
-          DateTime.now().minute.toString() +
-          ":" +
-          DateTime.now().second.toString();
-
+      String timestamp = DateFormat('yyyyMMddHHmmss').format(DateTime.now());
+      String username = (userDoc.data()! as Map<String, dynamic>)['name'];
       String videoUrl = await _uploadVideoToStorage(
-        "Video $len $date",
+        "$username Video $len $timestamp",
         videoPath,
       );
 
       // String thumbnail = await _uploadImageToStorage("Video $len", videoPath);
 
-      var gifUrl = await _uploadFile(await encodeGif(videoPath), 'Gif');
+      var gifUrl = await _uploadFile(await encodeGif(videoPath), 'gif');
 
       Video video = Video(
         username: (userDoc.data()! as Map<String, dynamic>)['name'],
         uid: uid,
-        id: "Video $len $date",
+        id: "$username Video $len $timestamp",
         likes: [],
         commentCount: 0,
         shareCount: 0,
@@ -141,12 +135,13 @@ class UploadVideoController extends GetxController {
         profilePhoto: (userDoc.data()! as Map<String, dynamic>)['profilePhoto'],
         // thumbnail: thumbnail,
         gif: gifUrl,
+        timeStamp: DateFormat('yyyyMMddHHmmss').format(DateTime.now()),
       );
 
       await firestore
           .collection('videos')
           .doc(
-            "Video $len $date",
+            "$username Video $len $timestamp",
           )
           .set(
             video.toJson(),
